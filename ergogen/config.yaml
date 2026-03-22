@@ -1,0 +1,458 @@
+meta:
+  author: yaessus
+units:
+  cx: 18          # choc horizontal spacing
+  cy: 18          # choc vertical spacing
+
+  nanoX: 18
+  nanoY: 34
+  nanoXpad: 7
+  nanoYpad: 8
+  nanoOutX: nanoX + nanoXpad
+  nanoOutY: nanoY + nanoYpad
+  spacing: .75
+
+  choc_cutout: 14.05
+  outer_border_padding: 10
+  inner_border_padding: 15
+points:
+  zones:
+    matrix:
+      key:
+        spread: cx + spacing      # 18 mm horizontal pitch
+        padding: cy + spacing    # 18 mm vertical pitch
+      anchor:
+        shift: [100, -150]
+      columns:
+        actions:
+          key.column_net: P031
+          rows.modifiers.skip: true
+        pinky:
+          key.column_net: P029
+          rows.modifiers.skip: true
+        ring:
+          key.stagger: 6
+          rows.modifiers.skip: true
+          key.column_net: P002
+        middle:
+          key.stagger: 3
+          key.column_net: P115
+        index:
+          key.stagger: -3
+          key.column_net: P113
+        inner:
+          key.stagger: -6
+          rows.modifiers.skip: true
+          key.column_net: P111
+        special:
+          rows.modifiers.skip: true
+          rows.bottom.skip: true
+          rows.numbers.skip: true
+          key.column_net: P010
+      rows:
+        modifiers:
+          row_net: P020
+        bottom:
+          row_net: P017
+        home:
+          row_net: P008
+        top:
+          row_net: P006
+        numbers:
+          row_net: P009
+    thumbfan:
+      key.spread: cx + spacing
+      key.padding: cx + spacing
+      anchor: 
+        ref: matrix_inner_modifiers
+        shift: [12, -5]
+      columns:
+        space:
+          key.splay: -35
+          key.height: 1.5*u
+          rows.top.skip: true
+          key.stagger: -0.5*u
+          key.column_net: P111
+        forward:
+          key.stagger: 0.5*u
+          key.column_net: P010
+      rows:
+        top:
+          row_net: P020
+        thumb:
+          row_net: P017
+  mirror:
+      ref: matrix_actions_numbers
+      distance: 310
+outlines:
+  keys:
+    - where: true
+      what: rectangle
+      size: choc_cutout
+  nano:
+    - what: rectangle
+      where: matrix_actions_numbers
+      size: [nanoX, nanoY]
+      fillet: 2
+      adjust.shift: [10, inner_border_padding-4]
+  left:
+    # top row border
+    - where: [[/^matrix_.*_numbers/, -/matrix_inner_numbers/]]
+      what: rectangle
+      size: [choc_cutout + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      adjust.shift: [0, inner_border_padding/4]
+      fillet: 2
+    - where: /^matrix_inner_numbers/
+      what: rectangle
+      size: [choc_cutout + inner_border_padding,
+             choc_cutout + inner_border_padding]
+      adjust.shift: [inner_border_padding/4, inner_border_padding/4]
+      fillet: 2
+    # rest of the keys
+    - where: [[/^matrix_.*/, -/^matrix_.*_numbers/]]
+      what: rectangle
+      size: [choc_cutout + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      adjust.shift: [0, inner_border_padding/4]
+      fillet: 2
+    # top-left body
+    - what: rectangle
+      where: matrix_ring_numbers
+      size: [5*choc_cutout + outer_border_padding,
+             1*(cx + spacing)]
+      fillet: 2
+      adjust.shift: [-(cx + spacing)/2, inner_border_padding]
+    # bottom-left body
+    - what: rectangle
+      where: matrix_pinky_bottom
+      size: [5*choc_cutout + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      fillet: 2
+      adjust.shift: [(cx + spacing)/2, 0]
+    # bottom-mid body
+    - what: rectangle
+      where: matrix_middle_modifiers
+      size: [2*(cx+spacing) + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      fillet: 2
+      adjust.shift: [(cx+spacing)/2, 0]
+    # thumbfan small fix
+    - what: rectangle
+      where: matrix_inner_bottom
+      size: choc_cutout + inner_border_padding
+    # thumbfan small
+    - where: thumbfan_space_thumb
+      what: rectangle
+      size: [choc_cutout + 1.5*inner_border_padding,
+             choc_cutout + inner_border_padding]
+      fillet: 2
+      adjust.shift: [-inner_border_padding/2, 0]
+
+    - where: /^thumbfan_.*forward_*/
+      what: rectangle
+      size: [2(u + outer_border_padding), u + 6]
+      fillet: 1
+      adjust.shift: [-15, 0]
+    # - what: rectangle
+    #   where: matrix_special_top
+    #   size: [nanoOutX, nanoOutY]
+    #   fillet: 2
+    #   adjust.shift: [u/2 + nanoOutX/2 - 1, -8.5]
+    # - what: polygon
+    #   operation: add
+    #   fillet: 2
+    #   points:
+    #     - ref: thumbfan_forward_thumb
+    #       shift: [0, -2]
+    #     - ref: matrix_special_home
+    #       shift: [u/2 + nanoOutX + 3.5, -u/2]
+    #     - ref: matrix_special_top
+    #       shift: [u/2 + nanoOutX + 3.5, u/2+4] 
+    #     - ref: matrix_inner_top
+    #       shift: [0, u/2 + 4]
+    #     - ref: thumbfan_forward_thumb
+    #       shift: [0, 0]
+        
+  right:
+    # top row border
+    - where: [[/^mirror_matrix_.*_numbers/, -/mirror_matrix_inner_numbers/]]
+      what: rectangle
+      size: [choc_cutout + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      adjust.shift: [0, inner_border_padding/4]
+      fillet: 2
+    - where: /^mirror_matrix_inner_numbers/
+      what: rectangle
+      size: [choc_cutout + inner_border_padding,
+             choc_cutout + inner_border_padding]
+      adjust.shift: [inner_border_padding/4, inner_border_padding/4]
+      fillet: 2
+    # rest of the keys
+    - where: [[/^mirror_matrix_.*/, -/^mirror_matrix_.*_numbers/]]
+      what: rectangle
+      size: [choc_cutout + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      adjust.shift: [0, inner_border_padding/4]
+      fillet: 2
+    # top-left body
+    - what: rectangle
+      where: mirror_matrix_ring_numbers
+      size: [5*choc_cutout + outer_border_padding,
+             1*(cx + spacing)]
+      fillet: 2
+      adjust.shift: [-(cx + spacing)/2, inner_border_padding]
+    # bottom-left body
+    - what: rectangle
+      where: mirror_matrix_pinky_bottom
+      size: [5*choc_cutout + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      fillet: 2
+      adjust.shift: [(cx + spacing)/2, 0]
+    # bottom-mid body
+    - what: rectangle
+      where: mirror_matrix_middle_modifiers
+      size: [2*(cx+spacing) + outer_border_padding,
+             choc_cutout + inner_border_padding]
+      fillet: 2
+      adjust.shift: [(cx+spacing)/2, 0]
+    # thumbfan small fix
+    - what: rectangle
+      where: mirror_matrix_inner_bottom
+      size: choc_cutout + inner_border_padding
+    # thumbfan small
+    - where: mirror_thumbfan_space_thumb
+      what: rectangle
+      size: [choc_cutout + 1.5*inner_border_padding,
+             choc_cutout + inner_border_padding]
+      fillet: 2
+      adjust.shift: [-inner_border_padding/2, 0]
+
+    - where: /^mirror_thumbfan_.*forward_*/
+      what: rectangle
+      size: [2(u + outer_border_padding), u + 6]
+      fillet: 1
+      adjust.shift: [-15, 0]
+    # - what: rectangle
+    #   where: matrix_special_top
+    #   size: [nanoOutX, nanoOutY]
+    #   fillet: 2
+    #   adjust.shift: [u/2 + nanoOutX/2 - 1, -8.5]
+    # - what: polygon
+    #   operation: add
+    #   fillet: 2
+    #   points:
+    #     - ref: thumbfan_forward_thumb
+    #       shift: [0, -2]
+    #     - ref: matrix_special_home
+    #       shift: [u/2 + nanoOutX + 3.5, -u/2]
+    #     - ref: matrix_special_top
+    #       shift: [u/2 + nanoOutX + 3.5, u/2+4] 
+    #     - ref: matrix_inner_top
+    #       shift: [0, u/2 + 4]
+    #     - ref: thumbfan_forward_thumb
+    #       shift: [0, 0] 
+  right_cutout:
+    - name: right
+    - operation: subtract
+      name: keys
+  left_cutout:
+    - name: left
+    - operation: subtract
+      name: keys
+    # - operation: subtract
+    #   name: nano
+
+pcbs:
+  left:
+    template: kicad8
+    outlines:
+      main:
+        outline: left
+    footprints:
+      choc_hotswap:
+        what: switch_choc_v1_v2
+        where: [/^matrix_.*/, /^thumbfan_.*/]
+        params:
+          # keycaps: true
+          # reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+          choc_v1_support: false
+          choc_v2_support: true
+          include_keycap: true
+        adjust:
+          rotate: 180
+          shift: [0, 0]
+      diode_main:
+        what: diode
+        where: [/^matrix_.*/, /^thumbfan_.*/]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [-4, u/3-2]
+          rotate: 180 + 45
+      # nice! nano v2
+      controller:
+        what: nice_nano
+        params.orientation: down
+        where:
+          ref: matrix_actions_numbers
+          shift: [6.5, inner_border_padding + 5]
+          rotate: 0
+      # Battery pack
+      jstph:
+        what: jstph
+        where:
+          ref: matrix_middle_numbers
+          shift: [0, inner_border_padding + u/2 - 6]
+          rotate: 0
+        params:
+          side: B
+          pos: pos
+          neg: GND
+      # Reset switch (horizontal community version)
+      horizontal_reset:
+        what: EVQPUC
+        params: 
+          from: GND
+          to: RST 
+          side: B
+        where:
+          ref: matrix_ring_numbers
+          shift: [-5, inner_border_padding + u/2 - 2.25]
+          rotate: 0
+      # Battery on/off switch
+      battery_switch:
+        what: slider
+        where:
+          ref: matrix_ring_numbers
+          shift: [5, inner_border_padding + u/2 - 2.25]
+          rotate: 0
+        params:
+            from: pos
+            to: RAW
+            side: B
+      # Mounting holes
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: matrix_inner_bottom
+          shift: [0, -u/2 - 4]
+      hole_bottom_middle:
+        what: mountinghole
+        where:
+          ref: matrix_ring_bottom
+          shift: [0, -U/2 - 4]
+      hole_top_left:
+        what: mountinghole
+        where:
+          ref: matrix_ring_numbers
+          shift: [0, u/2 + 4]
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: matrix_special_top
+          shift: [0, u/2 + 4]
+  right:
+    template: kicad8
+    outlines:
+      main:
+        outline: right
+    footprints:
+      choc_hotswap:
+        what: switch_choc_v1_v2
+        where: [/^mirror_matrix_.*/, /^mirror_thumbfan_.*/]
+        params:
+          # keycaps: true
+          # reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+          choc_v1_support: false
+          choc_v2_support: true
+          include_keycap: true
+        adjust:
+          rotate: 180
+          shift: [0, 0]
+      diode_main:
+        what: diode
+        where: [/^mirror_matrix_.*/, /^mirror_thumbfan_.*/]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [-4, u/3-2]
+          rotate: 180 + 45
+      # nice! nano v2
+      controller:
+        what: nice_nano
+        params.orientation: up
+        where:
+          ref: mirror_matrix_actions_numbers
+          shift: [6.5, inner_border_padding + 5]
+          rotate: 180
+      # Battery pack
+      jstph:
+        what: jstph
+        where:
+          ref: mirror_matrix_middle_numbers
+          shift: [0, inner_border_padding + u/2 - 6]
+          rotate: 0
+        params:
+          side: B
+          pos: pos
+          neg: GND
+      # Reset switch (horizontal community version)
+      horizontal_reset:
+        what: EVQPUC
+        params: 
+          from: GND
+          to: RST 
+          side: B # Set on the json spec
+        where:
+          ref: mirror_matrix_ring_numbers
+          shift: [-5, inner_border_padding + u/2 - 2.25]
+          rotate: 0
+      # Battery on/off switch
+      battery_switch:
+        what: slider
+        where:
+          ref: mirror_matrix_ring_numbers
+          shift: [5, inner_border_padding + u/2 - 2.25]
+          rotate: 0
+        params:
+          side: B
+          from: pos
+          to: RAW
+      # Mounting holes
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_inner_bottom
+          shift: [0, -u/2 - 4]
+      hole_bottom_middle:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_ring_bottom
+          shift: [0, -U/2 - 4]
+      hole_top_left:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_ring_numbers
+          shift: [0, u/2 + 4]
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: mirror_matrix_special_top
+          shift: [0, u/2 + 4]
+  left_case:
+    outlines:
+      main:
+        outline: left_cutout
+cases:
+  bottom:
+    - name: left
+      extrude: 1
