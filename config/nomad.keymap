@@ -13,7 +13,7 @@
                 blt: b_layer_tap {
                         compatible = "zmk,behavior-hold-tap";
                         #binding-cells = <2>;
-                        tapping-term-ms = <450>;
+                        tapping-term-ms = <250>;
                         flavor = "tap-preferred";
                         bindings = <&mo>, <&kp>;
                 };
@@ -27,16 +27,16 @@
 // | `~  |  1  |  2  |  3  |  4  |  5  |                             |  6  |  7  |  8  |  9  |  0  | +=  |
 // | TAB |  Q  |  W  |  E  |  R  |  T  | DEL |                 | BKS |  Y  |  U  |  I  |  O  |  P  |  '  |
 // | ESC |  A  |  S  |  D  |  F  |  G  | {[  |                 |  ]} |  H  |  J  |  K  |  L  |  ;  |PGUP |
-// |SHIFT|  Z  |  X  |  C  |  V  |B+UPP|  .T |        |CTRL+(ALTSHFT)|N+LWR|  M  |  ,  |  .  |  \  |PGDWN|
-//                   | ALT | CMD |  -- | SPC |                 | ENT |  -- | ALT | CMD |                  
+// |SHIFT|  Z  |  X  |  C  |  V  |B+UPP|ALTSHFT|               | CTRL|N+ALT|  M  |  ,  |  .  |  /  |PGDWN|
+//                   | ALT | CMD |  -- | SPC |                 | ENT |  -- | LWR | CMD |                  
 //
 //                
                         bindings = <
-   &kp GRAVE  &kp N1  &kp N2  &kp N3   &kp N4    &kp N5                           &kp N6     &kp N7  &kp N8     &kp N9    &kp N0    &kp EQUAL
-   &kp TAB    &kp Q   &kp W   &kp E    &kp R     &kp T     &kp DEL     &kp BSPC   &kp Y      &kp U   &kp I      &kp O     &kp P     &kp SQT
-   &kp ESC    &kp A   &kp S   &kp D    &kp F     &kp G     &kp LBKT    &kp RBKT   &kp H      &kp J   &kp K      &kp L     &kp SEMI  &kp PG_UP
-   &kp LSHFT  &kp Z   &kp X   &kp C    &kp V     &blt 1 B  &kp A      &kp LCTRL  &blt 2 N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp PG_DN
-                              &kp LALT &kp LGUI  &kp SPACE             &kp RET    &kp RALT   &kp RGUI
+   &kp GRAVE  &kp N1  &kp N2  &kp N3   &kp N4    &kp N5                                       &kp N6     &kp N7  &kp N8     &kp N9    &kp N0    &kp EQUAL
+   &kp TAB    &kp Q   &kp W   &kp E    &kp R     &kp T     &kp DEL                 &kp BSPC   &kp Y      &kp U   &kp I      &kp O     &kp P     &kp SQT
+   &kp ESC    &kp A   &kp S   &kp D    &kp F     &kp G     &kp LBKT                &kp RBKT   &kp H      &kp J   &kp K      &kp L     &kp SEMI  &kp PG_UP
+   &kp LSHFT  &kp Z   &kp X   &kp C    &kp V     &blt 1 B  &kp LALT(LSHFT)         &kp LCTRL  &mt LALT N   &kp M   &kp COMMA  &kp DOT &kp FSLH  &kp PG_DN
+                              &kp LALT &kp LGUI  &kp SPACE                         &kp RET    &mo 2   &kp RGUI
                         >;
                 };
 
@@ -61,16 +61,16 @@
                 lower_layer {
 //// -----------------------------------------------------------------------------------------
 //// |     |CTR+1|CTR+2|     |     |     |                     |     |     |     |     |MINUS|RESET   |
-//// |     |     |     |CTR+U|     |     |     |         |TRANS|     |     |  UP |     |     |(LC SPC)|
-//// |     |     |CTR+L|CTR+D|CTR+R|     |     |         |     |     | LEFT| DOWN|RIGHT|     |        |
+//// |     |     |     |CTR+U|     |     |     |         |TRANS|     |     |  UP |     |     |BSLH|
+//// |     |     |CTR+L|CTR+D|CTR+R|     |     |         |     |     | LEFT| DOWN|RIGHT|     |(LC SPC)|
 //// |     |     |     |     |     |  XX |  .T |         |  .T |  XX |     |     |     |     | BOOT   |
 ////                   |     |     |  -- |  .T |         |  .T |  -- |     |     |                  
 ////
 ////                
                         bindings = <
    &trans   &kp LC(N1)  &kp LC(N2)  &kp LC(N3)  &kp LC(N3)   &kp LC(N4)                             &trans   &trans     &trans     &trans      &kp MINUS  &sys_reset
-   &trans   &trans      &trans      &kp LC(U)   &trans       &trans     &trans          &trans      &trans   &trans     &kp UP     &trans      &trans     &kp LC(SPACE)
-   &trans   &trans      &kp LC(L)   &kp LC(D)   &kp LC(R)    &trans     &trans          &trans      &trans   &kp LEFT   &kp DOWN   &kp RIGHT   &trans     &trans
+   &trans   &trans      &trans      &kp LC(U)   &trans       &trans     &trans          &trans      &trans   &trans     &kp UP     &trans      &trans     &kp BSLH
+   &trans   &trans      &kp LC(L)   &kp LC(D)   &kp LC(R)    &trans     &trans          &trans      &trans   &kp LEFT   &kp DOWN   &kp RIGHT   &trans     &kp LC(SPACE)
    &trans   &trans      &trans      &trans      &trans       &trans     &trans          &trans      &trans   &trans     &trans     &trans      &trans     &bootloader
                                     &trans      &trans                  &trans          &trans               &trans     &trans
                         >;
