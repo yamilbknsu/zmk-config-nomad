@@ -13,7 +13,7 @@
                 blt: b_layer_tap {
                         compatible = "zmk,behavior-hold-tap";
                         #binding-cells = <2>;
-                        tapping-term-ms = <250>;
+                        tapping-term-ms = <200>;
                         flavor = "tap-preferred";
                         bindings = <&mo>, <&kp>;
                 };
@@ -27,16 +27,16 @@
 // | `~  |  1  |  2  |  3  |  4  |  5  |                             |  6  |  7  |  8  |  9  |  0  | +=  |
 // | TAB |  Q  |  W  |  E  |  R  |  T  | DEL |                 | BKS |  Y  |  U  |  I  |  O  |  P  |  '  |
 // | ESC |  A  |  S  |  D  |  F  |  G  | {[  |                 |  ]} |  H  |  J  |  K  |  L  |  ;  |PGUP |
-// |SHIFT|  Z  |  X  |  C  |  V  |B+UPP|ALTSHFT|               | CTRL|N+ALT|  M  |  ,  |  .  |  /  |PGDWN|
+// |SHIFT|  Z  |  X  |  C  |  V  |  B  |UPP|               | CTRL|N+ALT|  M  |  ,  |  .  |  /  |PGDWN|
 //                   | ALT | CMD |  -- | SPC |                 | ENT |  -- | LWR | CMD |                  
 //
 //                
                         bindings = <
-   &kp GRAVE  &kp N1  &kp N2  &kp N3   &kp N4    &kp N5                                       &kp N6     &kp N7  &kp N8     &kp N9    &kp N0    &kp EQUAL
-   &kp TAB    &kp Q   &kp W   &kp E    &kp R     &kp T     &kp DEL                 &kp BSPC   &kp Y      &kp U   &kp I      &kp O     &kp P     &kp SQT
-   &kp ESC    &kp A   &kp S   &kp D    &kp F     &kp G     &kp LBKT                &kp RBKT   &kp H      &kp J   &kp K      &kp L     &kp SEMI  &kp PG_UP
-   &kp LSHFT  &kp Z   &kp X   &kp C    &kp V     &blt 1 B  &kp LS(LALT)         &kp LCTRL  &mt LALT N &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp PG_DN
-                              &kp LALT &kp LGUI            &kp SPACE               &kp RET               &mo 2   &kp RGUI
+   &kp GRAVE  &kp N1  &kp N2  &kp N3   &kp N4    &kp N5                             &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp EQUAL
+   &kp TAB    &kp Q   &kp W   &kp E    &kp R     &kp T     &kp DEL       &kp BSPC   &kp Y   &kp U   &kp I      &kp O     &kp P     &kp SQT
+   &kp ESC    &kp A   &kp S   &kp D    &kp F     &kp G     &kp LBKT      &kp RBKT   &kp H   &kp J   &kp K      &kp L     &kp SEMI  &blt 1 PG_UP
+   &kp LSHFT  &kp Z   &kp X   &kp C    &kp V     &kp B     &mo 1         &kp LCTRL  &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &blt 2 PG_DN
+                              &kp LALT &kp LGUI            &kp SPACE     &kp RET            &mo 2   &kp LS(LALT)
                         >;
                 };
 
