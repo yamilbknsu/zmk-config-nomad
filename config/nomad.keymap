@@ -72,7 +72,7 @@
    &trans   &trans      &trans      &kp LC(U)   &trans       &trans     &trans          &trans      &trans   &trans     &kp UP     &trans      &trans     &kp BSLH
    &trans   &trans      &kp LC(L)   &kp LC(D)   &kp LC(R)    &trans     &trans          &trans      &trans   &kp LEFT   &kp DOWN   &kp RIGHT   &trans     &kp LC(SPACE)
    &trans   &trans      &trans      &trans      &trans       &trans     &trans          &trans      &trans   &trans     &trans     &trans      &trans     &bootloader
-                                    &trans      &trans                  &trans          &trans               &trans     &trans
+                                    &trans      &trans                  &LA(SPACE)          &trans               &trans     &trans
                         >;
                 };
         };
